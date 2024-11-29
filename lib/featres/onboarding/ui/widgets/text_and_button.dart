@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/helpers/extensions.dart';
 import 'package:tasky/core/helpers/spacing.dart';
+import 'package:tasky/core/routing/routes.dart';
 import 'package:tasky/core/theming/styles.dart';
 import 'package:tasky/core/widget/app_text_button.dart';
 
@@ -20,9 +22,11 @@ class TextAndButton extends StatelessWidget {
         verticalSpace(30),
         AppTextButton(
           borderRadius: 12.0.r,
-          buttonWidth: 331.w,
+          buttonWidth: 300.w,
           buttonText: 'Let’s Start',
-          onPressed: () {},
+          onPressed: () {
+            context.pushNamed(Routes.loginScreen);
+          },
           icon: Icons.arrow_forward_rounded,
           textStyle: TextStyles.font19WhiteBold,
         ),
