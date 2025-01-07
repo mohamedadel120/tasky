@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tasky/core/helpers/app_regex.dart';
+import 'package:tasky/core/helpers/extensions.dart';
 import 'package:tasky/core/helpers/spacing.dart';
 import 'package:tasky/core/widget/app_text_form.dart';
 import 'package:tasky/featres/auth/logic/cubit/login_cubit.dart';
@@ -29,13 +30,13 @@ class _PhoneAndPasswordState extends State<PhoneAndPassword> {
 
   final formKey = GlobalKey<FormState>();
   @override
-
   void initState() {
     super.initState();
-    setupPasswordControllerListener();
+/*     setupPasswordControllerListener();
+ */
   }
 
-  void setupPasswordControllerListener() {
+/*   void setupPasswordControllerListener() {
     passwordController.addListener(() {
       setState(() {
         hasLowercase = AppRegex.hasLowerCase(passwordController.text);
@@ -46,12 +47,12 @@ class _PhoneAndPasswordState extends State<PhoneAndPassword> {
         hasMinLength = AppRegex.hasMinLength(passwordController.text);
       });
     });
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: context.read<AuthCubit>().formKey,
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 25.0.h),
         child: Column(
@@ -62,15 +63,15 @@ class _PhoneAndPasswordState extends State<PhoneAndPassword> {
               validator: (value) {
                 if (value == null ||
                     value.isEmpty ||
-                    !AppRegex.isEmailValid(value)) {
+                    !AppRegex.isPhoneNumberValid(value)) {
                   return 'Please enter a valid phone number';
                 }
               },
-              controller: phoneController,
+              controller: context.read<AuthCubit>().phoneController,
             ),
             verticalSpace(18),
             AppTextFormField(
-              controller:passwordController,
+              controller: context.read<AuthCubit>().passwordController,
               hintText: 'Password',
               isObscureText: isObscureText,
               suffixIcon: GestureDetector(
@@ -84,13 +85,13 @@ class _PhoneAndPasswordState extends State<PhoneAndPassword> {
                 ),
               ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
+                if (value.isNullOrEmpty()) {
                   return 'Please enter a valid password';
                 }
               },
             ),
-            verticalSpace(24),
-/*             PasswordValidations(
+            /*verticalSpace(24),
+            PasswordValidations(
               hasLowerCase: hasLowercase,
               hasUpperCase: hasUppercase,
               hasSpecialCharacters: hasSpecialCharacters,
@@ -103,9 +104,9 @@ class _PhoneAndPasswordState extends State<PhoneAndPassword> {
     );
   }
 
-  @override
+/*   @override
   void dispose() {
     passwordController.dispose();
     super.dispose();
-  }
+  } */
 }

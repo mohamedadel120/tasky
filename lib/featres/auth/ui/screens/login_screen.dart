@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/helpers/extensions.dart';
 import 'package:tasky/core/helpers/spacing.dart';
+import 'package:tasky/core/routing/routes.dart';
 import 'package:tasky/core/theming/styles.dart';
 import 'package:tasky/core/widget/app_text_button.dart';
+import 'package:tasky/featres/auth/logic/cubit/login_cubit.dart';
 
 import 'package:tasky/featres/auth/ui/widgets/button_and_sign_up.dart';
 import 'package:tasky/featres/auth/ui/widgets/image_with_login_text.dart';
+import 'package:tasky/featres/auth/ui/widgets/login_bloc_listener.dart';
 import 'package:tasky/featres/auth/ui/widgets/phone_and_password.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -41,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
               verticalSpace(10),
               const DontHaveAccount(),
               verticalSpace(20.h),
+              const LoginBlocListener(),
             ],
           ),
         ),
@@ -49,6 +55,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void validateThenDoLogin(BuildContext context) {
-    if (formKey.currentState!.validate()) {}
+    if (context.read<AuthCubit>().formKey.currentState!.validate()) {
+      context.read<AuthCubit>().login();
+      context.pushNamed(Routes.home);
+    }
   }
 }

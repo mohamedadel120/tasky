@@ -42,6 +42,10 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   retrofit: ^4.4.1
   retrofit_generator: ^9.1.5
+  #Simple direct Service Locator that allows to decouple the interface from a concrete
+  get_it: ^8.0.2
+  flutter_secure_storage: ^8.0.0
+  shared_preferences: ^2.3.5
 
 dev_dependencies:
   flutter_lints: ^4.0.0
