@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tasky/core/helpers/constant.dart';
 import 'package:tasky/core/routing/app_routes.dart';
 import 'package:tasky/core/routing/routes.dart';
 import 'package:tasky/core/theming/colors.dart';
@@ -12,7 +13,7 @@ class TaskyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       minTextAdapt: true,
-      designSize: const Size(375, 812), 
+      designSize: const Size(375, 812),
       child: MaterialApp(
         title: 'Tasky',
         theme: ThemeData(
@@ -21,7 +22,9 @@ class TaskyApp extends StatelessWidget {
         ),
         debugShowCheckedModeBanner: false,
         onGenerateRoute: appRouters.generateRoute,
-        initialRoute: Routes.onBoardingScreen,
+        initialRoute: isLoggedInUser ? Routes.home : Routes.onBoardingScreen,
+
+        // Routes.onBoardingScreen,
       ),
     );
   }
